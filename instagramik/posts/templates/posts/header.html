@@ -1,0 +1,11 @@
+<header>
+    <a href="{% url 'posts:index' %}">Главная страница</a>
+    {% if user.is_authenticated %}
+        <p>Привет, <a href="{% url 'core:profile-detail' user.profile.id %}">{{ user.username }}.</a></p>
+        <a href="{% url 'core:logout' %}">Выйти</a>
+    {% else %}
+        <a href="{% url 'core:logout' %}">Войти</a>
+        <a href="{% url 'core:sign_up' %}">Зарегистрироваться</a>
+    {% endif %}
+    <hr>
+</header>

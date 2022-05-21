@@ -1,0 +1,47 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}
+    Пост №{{ posts.id }}
+{% endblock %}
+
+{% block page_content %}
+    <a href="{% url 'posts:index' %}">Вернуться на главную</a>
+    <p>{{ product.author }}</p>
+    <p>{{ product.get_date_pub }}</p>
+    <img src="{{ post.image.url }}" style="width: 300px; height: 400px;">
+    <p>{{ post.description }}</p>
+    <p> Likes : {{ post.likes_count }}</p>
+                <form method="post" action="{% url 'posts:post-like' post.id %}">
+                    {% csrf_token %}
+                    <button type="submit">👍</button>
+                </form>
+    {% if post.author == user %}
+        <a href="{% url 'posts:post-delete' post.id %}">❌</a>
+        <a href="{% url 'posts:post-edit' post.id %}">✎</a>
+    {% endif %}
+
+    {% if comments %}
+        <div>
+            {% for comment in comments %}
+                <p>{{ comment.author }}</p>
+                <p>{{ comment.get_date_pub }}</p>
+                <p>{{ comment.text }}</p>
+                {% if comment.author == user %}
+                    <form method="post" action="{% url 'posts:comment-delete' comment.id %}">
+                        {% csrf_token %}
+                        <button type="submit">❌</button>
+                    </form>
+                {% endif %}
+                <hr>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if comment_form %}
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit">Комментировать</button>
+        </form>
+    {% endif %}
+{% endblock %}

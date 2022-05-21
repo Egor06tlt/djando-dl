@@ -1,0 +1,24 @@
+{% extends 'posts/base.html' %} 
+
+{% block title %} 
+    Главная страница
+{% endblock %} 
+
+{% block page_content %}
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="{% url 'posts:post-detail' post.id %}">Перейти к посту</a>
+                <a href="{% url 'core:profile-detail' post.author.profile.id %}">{{ post.author }}</a>
+                <p>{{ post.date_pub }}</p>
+                <img src="{{ post.image.url }}" style="width: 300px; height: 300px;">
+                <p>{{ post.description }}</p>
+                <p> Likes : {{ post.likes_count }}</p>
+                <form method="post" action="{% url 'posts:post-like' post.id %}">
+                    {% csrf_token %}
+                    <button type="submit">👍</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'posts/base.html' %} 
+
+{% block title %} 
+    Удаление поста #{{ post.id }}
+{% endblock %} 
+
+{% block page_content %}
+
+    {% if post.author != user %}
+        <h1>Удалить этот пост может только его автор</h1>
+    {% else %}
+        <h1>Вы действительно хотите удалить этот пост?</h1>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Удалить</button>
+        </form>
+        <a href="{% url 'posts:post-detail' post.id %}">Нет</a>
+    {% endif %} 
+{% endblock %}
