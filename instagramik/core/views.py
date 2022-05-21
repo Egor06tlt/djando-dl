@@ -55,7 +55,7 @@ class ProfileUpdate(UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('core:profile-detail', args=(self.object.id))
+        return reverse('core:profile-detail', args=(self.object.id, ))
 
 
 class SubscribeView(View):

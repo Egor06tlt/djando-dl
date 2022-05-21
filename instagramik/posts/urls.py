@@ -13,6 +13,6 @@ urlpatterns = [
     path('posts/<int:post_id>/delete/', PostDelete.as_view(), name='post-delete'),
     path('posts/<int:post_id>/like/', post_like, name='post-like'),
     path('posts/create/', PostCreate.as_view(), name='post-create'),
-    path('posts/success/', TemplateView.as_view(template_name='posts/delete_success.html'),name='post-delete-success.html'),
+    path('posts/success/', TemplateView.as_view(template_name='posts/delete_success.html'),name='post-delete-success'),
     path('posts/comment/delete/<int:id>/', CommentDelete.as_view(), name='comment-delete')
 ]

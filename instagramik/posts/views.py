@@ -105,7 +105,7 @@ class CommentDelete(DeleteView):
     def get_success_url(self):
         comment_id = self.kwargs['id']
         comment = Comment.objects.get(id=comment_id)
-        return reverse('posts:post-delete',
+        return reverse('posts:comment-delete',
                         args=(comment.post.id, ))
 
 
