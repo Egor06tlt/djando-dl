@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from .validators import validate_birth_date
 
 def user_avatar_path(instance, filename):
     user_id = instance.user.id
@@ -9,7 +10,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User,
                              on_delete=models.CASCADE,
                              related_name='profile')
-    birth_date = models.DateField(blank=True, null=True)
+    birth_date = models.DateField(blank=True, null=True, validators=[validate_birth_date])
     about = models.TextField(max_length=500, blank=True)
     avatar = models.ImageField(upload_to=user_avatar_path)
     subscriptions = models.ManyToManyField(User, blank=True, related_name='subscribers')

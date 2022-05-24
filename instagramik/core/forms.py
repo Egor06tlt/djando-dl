@@ -7,10 +7,11 @@ from .models import Profile
 
 
 class LoginForm(AuthenticationForm):
-    password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Пароль'}))
+    password = forms.CharField(label='', widget=forms.PasswordInput(attrs={
+                               'placeholder': 'Пароль', 'class': 'form-control'}))
 
     username = UsernameField(label='', widget=forms.TextInput(attrs={
-                             'autofocus': True, 'placeholder': 'Username'}))
+                             'class': 'form-control', 'autofocus': True, 'placeholder': 'Username'}))
 
     error_messages = {
         'invalid_login': 'Введён неправильный логин или пароль'
