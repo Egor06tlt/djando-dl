@@ -19,7 +19,7 @@ class IndexView(ListView):
     def get_queryset(self):
         queryset = self.model.objects.annotate( 
             like_nums=Count('likes')
-            ).order_by('like_nums')[:self.LIMIT]
+            ).order_by('-like_nums')[:self.LIMIT]
         return queryset
 
 
@@ -29,7 +29,7 @@ class FeedView(IndexView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        friends_list = self.request.user.profile.friends.all()
+        friends_list = self.request.user.profile.subscriptions.all()
         queryset = Post.objects.filter(author__in=friends_list)
         return queryset
 
@@ -71,6 +71,7 @@ class PostDetail(DetailView):
 
 class PostCreate(CreateView):
     form_class = PostForm
+    pk_url_kwarg = 'post_id'
     template_name = 'posts/create.html'
 
     @method_decorator(login_required(login_url='/admin/'))
@@ -105,7 +106,7 @@ class CommentDelete(DeleteView):
     def get_success_url(self):
         comment_id = self.kwargs['id']
         comment = Comment.objects.get(id=comment_id)
-        return reverse('posts:comment-delete',
+        return reverse('posts:post-detail',
                         args=(comment.post.id, ))
 
 

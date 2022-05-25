@@ -24,7 +24,7 @@
 <form action="{% url 'core:subscribe' profile.user.id %}" method="post">
     {% csrf_token %} 
     {% if profile.user in user.profile.subscriptions.all %}
-    <button type="submit">✖ Отписаться </button>
+    <button type="submit">❌ Отписаться </button>
     {% else %} 
     <button type="submit">✅ Подписаться</button>
     {% endif %}
