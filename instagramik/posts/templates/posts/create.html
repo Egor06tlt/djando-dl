@@ -1,14 +1,14 @@
-{% extends 'posts/base.html' %} 
+{% extends 'posts/base.html' %}
 
-{% block title %} 
+{% block title %}
     Создание нового поста
-{% endblock %}  
+{% endblock %}
 
-{% block page_content %} 
+{% block page_content %}
 
     <form method="post" enctype="multipart/form-data">
-        {% csrf_token %} 
-        {{ form.as_p }} 
+        {% csrf_token %}
+        {{ form.as_p }}
         <button type="submit">Создать</button>
     </form>
 

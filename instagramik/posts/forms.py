@@ -14,8 +14,8 @@ class PostForm(forms.ModelForm):
         }
         widgets = {
             'description': forms.Textarea(attrs={
-                'class': 'form-control',
-                'placeholder': 'Введите описание'}),
+            'class': 'form-control',
+            'placeholder': 'Введите описание'}),
             'image': PictureWidget()
         }
 

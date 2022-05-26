@@ -71,7 +71,6 @@ class PostDetail(DetailView):
 
 class PostCreate(CreateView):
     form_class = PostForm
-    pk_url_kwarg = 'post_id'
     template_name = 'posts/create.html'
 
     @method_decorator(login_required(login_url='/admin/'))
@@ -88,7 +87,7 @@ class PostCreate(CreateView):
             return redirect(reverse('posts:post-detail', kwargs={'post_id': post.id}))
         else:
             return render(request, 'posts/create.html', {'form': form})
-
+            
 
 class PostDelete(DeleteView):
     model = Post
